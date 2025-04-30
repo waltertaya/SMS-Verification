@@ -39,7 +39,7 @@ cd SMS-Verification
 Add your environment variables:
 
 ```env
-DB_URL=your_postgres_url
+DB_URL=your_mysql_url
 TWILIO_VERIFY_SERVICE_SID=your_twilio_verify_sid
 TWILIO_ACCOUNT_SID=your_account_sid
 TWILIO_AUTH_TOKEN=your_auth_token
