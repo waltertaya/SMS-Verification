@@ -19,6 +19,8 @@ func init() {
 func main() {
 	r := gin.Default()
 
+	r.LoadHTMLGlob("templates/*")
+
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:80"}, // Allow frontend origin
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
@@ -37,6 +39,16 @@ func main() {
 	r.POST("/api/v2/auth/register", controllers.RegisterUser)
 	r.POST("/api/v2/auth/2fa/code", controllers.CodeRequest)
 	r.POST("/api/v2/auth/2fa/verify", controllers.VerifyCode)
+
+	r.GET("/api/v2/docs", func(ctx *gin.Context) {
+		ctx.HTML(http.StatusOK, "index.html", nil)
+	})
+
+	r.NoRoute(func(ctx *gin.Context) {
+		ctx.HTML(http.StatusNotFound, "404.html", gin.H{
+			"url": ctx.Request.RequestURI,
+		})
+	})
 
 	r.Run()
 }
